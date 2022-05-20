@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -19,12 +18,5 @@ public class Present {
     private  String lastname;
     private Date date;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Present present = (Present) o;
-        return firstname==present.firstname ;
-    }
 
 }

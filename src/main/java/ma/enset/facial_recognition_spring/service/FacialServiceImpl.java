@@ -37,15 +37,62 @@ public class FacialServiceImpl implements FacialService {
     public List<Student> getAllAbsentStudent(Date t1, Date t2) {
         List<Student>students=getAllStudent();
         List<Present>presents=getAllPresentStudent(t1,t2);
-        List<Student> absents=new ArrayList<>();
+        List<Student> absents = new ArrayList<>();
 
        students.forEach(
                student -> {
-                   if(!presents.contains(student)) {
+                   int i=0;
+
+                   for (int j=0;j<presents.size();j++){
+                       String na1=presents.get(j).getFirstname();
+                       String na2=student.getFirstname();
+
+                       if (na2.equals(na1) ){
+                           System.out.println("okokokokkokok");
+                           i++;
+                       }
+                   }
+                   if(i==0){
+                       System.out.println("abs");
                        absents.add(student);
                    }
+
                }
        );
+
+
+
         return absents;
+    }
+    @Override
+    public List<Student> getAllPresents(Date t1, Date t2) {
+        List<Student>students=getAllStudent();
+        List<Present>presents=getAllPresentStudent(t1,t2);
+        List<Student> pres = new ArrayList<>();
+
+        students.forEach(
+                student -> {
+                    int i=0;
+
+                    for (int j=0;j<presents.size();j++){
+                        String na1=presents.get(j).getFirstname();
+                        String na2=student.getFirstname();
+
+                        if (na2.equals(na1) ){
+                            System.out.println("okokokokkokok");
+                            i++;
+                        }
+                    }
+                    if(i>0){
+                        System.out.println("abs");
+                        pres.add(student);
+                    }
+
+                }
+        );
+
+
+
+        return pres;
     }
 }
