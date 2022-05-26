@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@RestController
+//@RestController
 @AllArgsConstructor
 public class FacialController {
     FacialService facialService;
@@ -61,4 +61,8 @@ public class FacialController {
         });
         return presentAndAbsentList;
     }
+
+
+
+
 }
