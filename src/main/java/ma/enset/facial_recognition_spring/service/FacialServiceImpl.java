@@ -1,16 +1,22 @@
 package ma.enset.facial_recognition_spring.service;
 
 import lombok.AllArgsConstructor;
+import ma.enset.facial_recognition_spring.entities.Etat;
 import ma.enset.facial_recognition_spring.entities.Present;
+import ma.enset.facial_recognition_spring.entities.PresentAndAbsent;
 import ma.enset.facial_recognition_spring.entities.Student;
 import ma.enset.facial_recognition_spring.repositories.PresentRepository;
 import ma.enset.facial_recognition_spring.repositories.StudentRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static org.apache.coyote.http11.Constants.a;
+
 @Service
 @Transactional
 @AllArgsConstructor
@@ -94,5 +100,25 @@ public class FacialServiceImpl implements FacialService {
 
 
         return pres;
+    }
+
+    @Override
+    public List<PresentAndAbsent> getPresentsAndAbsent(Date t1, Date t2) {
+        List<PresentAndAbsent> presentAndAbsentList = new ArrayList<>();
+        List<Student> presents = getAllPresents(t1, t2);
+        List<Student> absents = getAllAbsentStudent(t1, t2);
+        presents.forEach(p->{
+          PresentAndAbsent presentAndAbsent = new PresentAndAbsent();
+          BeanUtils.copyProperties(p,presentAndAbsent);
+          presentAndAbsent.setEtat(Etat.PRESENT);
+          presentAndAbsentList.add(presentAndAbsent);
+        });
+        absents.forEach(p->{
+            PresentAndAbsent presentAndAbsent = new PresentAndAbsent();
+            BeanUtils.copyProperties(p,presentAndAbsent);
+            presentAndAbsent.setEtat(Etat.ABSENT);
+            presentAndAbsentList.add(presentAndAbsent);
+        });
+        return presentAndAbsentList;
     }
 }
