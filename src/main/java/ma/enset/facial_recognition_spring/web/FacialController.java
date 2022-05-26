@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@RestController
+//@RestController
 @AllArgsConstructor
 public class FacialController {
     FacialService facialService;
@@ -48,8 +48,8 @@ public class FacialController {
     }
 
     @GetMapping("/presentsabsents")
-    List<PresentAndAbsent> presentAndAbsents(@RequestParam(name = "t1") String t1,
-                                             @RequestParam(name = "t2") String t2) throws ParseException {
+    List<PresentAndAbsent> presentAndAbsents(@RequestParam(name = "t1", defaultValue = "0") String t1,
+                                             @RequestParam(name = "t2", defaultValue = "0") String t2) throws ParseException {
         List<PresentAndAbsent> presentAndAbsentList = facialService.getPresentsAndAbsent(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(t1), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(t2));
 
         Collections.sort(presentAndAbsentList, new Comparator<PresentAndAbsent>() {
@@ -61,4 +61,8 @@ public class FacialController {
         });
         return presentAndAbsentList;
     }
+
+
+
+
 }
