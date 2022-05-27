@@ -19,12 +19,8 @@ import java.util.List;
 @AllArgsConstructor
 public class controllertest {
     FacialService facialService;
-    @GetMapping("/home")
-    public String gethome(){
-        return "home1";
-    }
 
-    @GetMapping("/liststudent")
+    @GetMapping("/principal/student")
     public String getpage(Model model ,
                           @RequestParam(name = "d", defaultValue = "2022-05-20") String d,
                           @RequestParam(name = "t1", defaultValue = "21:30:20") String t1,
