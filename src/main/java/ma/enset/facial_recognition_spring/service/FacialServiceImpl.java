@@ -8,9 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.apache.coyote.http11.Constants.a;
 
@@ -27,7 +25,8 @@ public class FacialServiceImpl implements FacialService {
     }
     @Override
     public List<Present> getAllPresent() {
-        return presentRepository.findAll();
+        List<Present> presents = presentRepository.findAll();
+        return presents;
     }
 
     @Override
@@ -63,7 +62,12 @@ public class FacialServiceImpl implements FacialService {
                }
        );
 
-
+        Collections.sort(absents, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return (o1.getLastname()+" "+o1.getFirstname()).compareTo(o2.getLastname()+" "+o2.getFirstname());
+            }
+        });
 
         return absents;
     }
@@ -96,7 +100,12 @@ public class FacialServiceImpl implements FacialService {
                 }
         );
 
-
+        Collections.sort(returnPresence, new Comparator<DateStudent>() {
+            @Override
+            public int compare(DateStudent o1, DateStudent o2) {
+                return (o1.getStudent().getLastname()+" "+o1.getStudent().getFirstname()).compareTo(o2.getStudent().getLastname()+" "+o2.getStudent().getFirstname());
+            }
+        });
 
         return returnPresence;
     }
@@ -117,6 +126,13 @@ public class FacialServiceImpl implements FacialService {
             BeanUtils.copyProperties(p,presentAndAbsent);
             presentAndAbsent.setEtat(Etat.ABSENT);
             presentAndAbsentList.add(presentAndAbsent);
+        });
+        Collections.sort(presentAndAbsentList, new Comparator<PresentAndAbsent>() {
+            @Override
+            public int compare(PresentAndAbsent o1, PresentAndAbsent o2) {
+                return (((PresentAndAbsent)o1).getLastname()+" "+o1.getFirstname())
+                        .compareTo(((PresentAndAbsent)o2).getLastname()+" "+o2.getFirstname());
+            }
         });
         return presentAndAbsentList;
     }
