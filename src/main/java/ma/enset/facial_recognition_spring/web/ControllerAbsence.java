@@ -18,11 +18,11 @@ import java.util.*;
 
 @Controller
 @AllArgsConstructor
-public class controllertest {
+public class ControllerAbsence {
     FacialService facialService;
 
 
-    @GetMapping("/form")
+    @GetMapping("/admin/form")
 
     public String getpage(Model model ,
                           @RequestParam(name = "d", defaultValue = "2022-05-20") String d,
