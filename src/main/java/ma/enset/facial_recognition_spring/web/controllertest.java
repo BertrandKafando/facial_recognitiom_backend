@@ -22,11 +22,9 @@ import java.util.List;
 public class controllertest {
     FacialService facialService;
 
-<<<<<<< HEAD
-    @GetMapping("/principal/student")
-=======
+
     @GetMapping("/form")
->>>>>>> 0ab1b7513e06ea39201790681aebb5d544185ebf
+
     public String getpage(Model model ,
                           @RequestParam(name = "d", defaultValue = "2022-05-20") String d,
                           @RequestParam(name = "t1", defaultValue = "21:30:20") String t1,
