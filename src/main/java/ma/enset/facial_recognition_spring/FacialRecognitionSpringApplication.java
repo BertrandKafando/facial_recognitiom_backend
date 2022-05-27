@@ -29,7 +29,7 @@ public class FacialRecognitionSpringApplication {
         return args -> {
 
 
-            facialService.getAllAbsentStudent(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-05-20 21:30:20"),
+            facialService.getAllPresents(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-05-20 21:30:20"),
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2022-05-20 22:46:20")).forEach( p->{
                 System.out.println(p);
             });

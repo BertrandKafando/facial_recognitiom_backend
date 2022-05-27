@@ -1,6 +1,7 @@
 package ma.enset.facial_recognition_spring.web;
 
 import lombok.AllArgsConstructor;
+import ma.enset.facial_recognition_spring.entities.DateStudent;
 import ma.enset.facial_recognition_spring.entities.PresentAndAbsent;
 import ma.enset.facial_recognition_spring.entities.Student;
 import ma.enset.facial_recognition_spring.service.FacialService;
@@ -35,13 +36,13 @@ public class FacialController {
     }
 
     @GetMapping("/presents")
-    List<Student>getpresents(@RequestParam(name = "t1") String t1,
-                            @RequestParam(name = "t2") String t2) throws ParseException {
-        List<Student>  presents=   facialService.getAllPresents( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(t1), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(t2));
-        Collections.sort(presents, new Comparator<Student>() {
+    List<DateStudent>getpresents(@RequestParam(name = "t1") String t1,
+                                 @RequestParam(name = "t2") String t2) throws ParseException {
+        List<DateStudent>  presents=   facialService.getAllPresents( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(t1), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(t2));
+        Collections.sort(presents, new Comparator<DateStudent>() {
             @Override
-            public int compare(Student o1, Student o2) {
-                return (o1.getLastname()+" "+o1.getFirstname()).compareTo(o2.getLastname()+" "+o2.getFirstname());
+            public int compare(DateStudent o1, DateStudent o2) {
+                return (o1.getStudent().getLastname()+" "+o1.getStudent().getFirstname()).compareTo(o2.getStudent().getLastname()+" "+o2.getStudent().getFirstname());
             }
         });
         return  presents;

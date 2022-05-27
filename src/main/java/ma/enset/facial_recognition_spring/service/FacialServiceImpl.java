@@ -1,10 +1,7 @@
 package ma.enset.facial_recognition_spring.service;
 
 import lombok.AllArgsConstructor;
-import ma.enset.facial_recognition_spring.entities.Etat;
-import ma.enset.facial_recognition_spring.entities.Present;
-import ma.enset.facial_recognition_spring.entities.PresentAndAbsent;
-import ma.enset.facial_recognition_spring.entities.Student;
+import ma.enset.facial_recognition_spring.entities.*;
 import ma.enset.facial_recognition_spring.repositories.PresentRepository;
 import ma.enset.facial_recognition_spring.repositories.StudentRepository;
 import org.springframework.beans.BeanUtils;
@@ -71,27 +68,29 @@ public class FacialServiceImpl implements FacialService {
         return absents;
     }
     @Override
-    public List<Student> getAllPresents(Date t1, Date t2) {
+    public List<DateStudent> getAllPresents(Date t1, Date t2) {
         List<Student>students=getAllStudent();
         List<Present>presents=getAllPresentStudent(t1,t2);
-        List<Student> pres = new ArrayList<>();
+        List<DateStudent> returnPresence = new ArrayList<>();
 
         students.forEach(
                 student -> {
                     int i=0;
-
+                    Date date=null;
                     for (int j=0;j<presents.size();j++){
                         String na1=presents.get(j).getFirstname();
                         String na2=student.getFirstname();
 
                         if (na2.equals(na1) ){
                             System.out.println("okokokokkokok");
+                             date=presents.get(j).getDate();
                             i++;
                         }
                     }
                     if(i>0){
                         System.out.println("abs");
-                        pres.add(student);
+
+                        returnPresence.add( new DateStudent(student,date) );
                     }
 
                 }
@@ -99,17 +98,17 @@ public class FacialServiceImpl implements FacialService {
 
 
 
-        return pres;
+        return returnPresence;
     }
 
     @Override
     public List<PresentAndAbsent> getPresentsAndAbsent(Date t1, Date t2) {
         List<PresentAndAbsent> presentAndAbsentList = new ArrayList<>();
-        List<Student> presents = getAllPresents(t1, t2);
+        List<DateStudent> presents = getAllPresents(t1, t2);
         List<Student> absents = getAllAbsentStudent(t1, t2);
         presents.forEach(p->{
           PresentAndAbsent presentAndAbsent = new PresentAndAbsent();
-          BeanUtils.copyProperties(p,presentAndAbsent);
+          BeanUtils.copyProperties(p.getStudent(),presentAndAbsent);
           presentAndAbsent.setEtat(Etat.PRESENT);
           presentAndAbsentList.add(presentAndAbsent);
         });

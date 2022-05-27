@@ -14,17 +14,38 @@
      <div class="card-body">
          <form method="get" th:action="@{/index}">
              <label>Entrer la date</label>
-             <input type="date" name="keyword" th:value="${date}">
+             <input type="date" name="d" th:value="${date}">
              <br>
              <br>
              <label>Heure de debut</label>
-             <input type="datetime-local" name="keyword" th:value="${t1}">
+             <input type="time" name="t1" th:value="${t1}">
              <label style="margin-left: 15px">Heure de fin</label>
-             <input type="time" name="keyword" th:value="${t2}">
+             <input type="time" name="t2" th:value="${t2}">
 
-             <button type="submit" class="btn btn-primary">Chercher</button>
+             <button type="submit"  class="btn btn-primary">Chercher</button>
          </form>
 
+         <table class="table">
+             <thead>
+             <tr>
+                 <th>ID</th>
+                 <th>Nom</th>
+                 <th>Date</th>
+                 <th>Malade</th>
+                 <th>Score</th>
+             </tr>
+             </thead>
+             <tbody>
+             <tr  th:each="p:${presentAndAbsents}" >
+                 <td   th:text="${p.id}" th:class="${p.getEtat()=='ABSENT'? 'text-danger':'text-success'} "></td>
+                 <td th:text="${p.getFirstname()}"></td>
+                 <td th:text="${p.getLastname()}"></td>
+                 <td  th:text="${p.getEtat()}"></td>
+             </tr>
+
+             </tbody>
+
+         </table>
 
        <!--  <table class="table">
              <thead>
