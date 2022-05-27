@@ -37,9 +37,10 @@
              </thead>
              <tbody>
              <tr  th:each="p:${presentAndAbsents}" >
-                 <td  th:class="${p.etat== 'ABSENT'}?'text-danger':'text-success'" th:text="${p.id}"></td>
+                 <td   th:text="${p.id}" th:class="${p.getEtat()=='ABSENT'? 'text-danger':'text-success'} "></td>
                  <td th:text="${p.getFirstname()}"></td>
                  <td th:text="${p.getLastname()}"></td>
+                 <td  th:text="${p.getEtat()}"></td>
              </tr>
 
              </tbody>
