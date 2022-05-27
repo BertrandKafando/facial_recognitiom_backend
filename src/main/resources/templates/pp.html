@@ -10,82 +10,96 @@
 <body>
  <div layout:fragment="content1">
   <div class="container mt-2">
-     <div class="card-header">Liste d'absence</div>
-     <div class="card-body">
+     <div class="card-header">Prise d'absence</div>
+     <div class="card-body text-center">
          <form method="get" th:action="@{/form}">
-             <label>Entrer la date</label>
+             <label><strong>Entrez la date</strong></label>
              <input type="date" name="d" th:value="${date}">
              <br>
              <br>
-             <label>Heure de debut</label>
+             <label><strong>Heure de debut</strong></label>
              <input type="time" name="t1" th:value="${t1}">
-             <label style="margin-left: 15px">Heure de fin</label>
+             <label style="margin-left: 15px"><strong>Heure de fin</strong></label>
              <input type="time" name="t2" th:value="${t2}">
-             <input type="hidden" name="aff" th:value="true">
-             <button type="submit" class="btn btn-primary">Chercher</button>
+             <input type="hidden" name="aff" th:value="true"> <br>
+             <button type="submit" class="btn btn-success mt-2 "><strong>Chercher</strong></button>
          </form>
 
          <div th:if="${aff=='true'}"  >
-             <div class="card card-body mt-1 mb-1 text-center">
+             <div class="card card-body mt-2 mb-2 text-center">
                  <h4 th:text="${date1}" class="fw-bold"></h4> <hr>
                  <h5 th:text="${time}" class="fw-bold"></h5>
              </div>
 
              <div class="row">
                  <div class="col-md-6">
-                     <table class="table">
-                         <thead>
-                         <tr>
-                             <th>Nom</th>
-                             <th>Prénom(s)</th>
-                         </tr>
-                         </thead>
-                         <tbody>
-                         <tr  th:each="p:${presentAndAbsents}" th:class="${p.getEtat().toString()=='ABSENT'}? 'bg-danger text-white':''">
-                             <td th:text="${p.getLastname()}"></td>
-                             <td th:text="${p.getFirstname()}"></td>
-                             <td  th:text="${p.getEtat()}"></td>
-                         </tr>
+                     <div class="card">
+                         <div class="card-header">
+                             <h5 class="fw-bold">Liste complète</h5>
+                         </div>
+                         <div class="card-body">
+                             <table class="table">
+                                 <thead>
+                                 <tr>
+                                     <th>Nom</th>
+                                     <th>Prénom(s)</th>
+                                 </tr>
+                                 </thead>
+                                 <tbody>
+                                 <tr  th:each="p:${presentAndAbsents}" th:class="${p.getEtat().toString()=='ABSENT'}? 'bg-danger text-white':''">
+                                     <td th:text="${p.getLastname()}"></td>
+                                     <td th:text="${p.getFirstname()}"></td>
+                                     <td  th:text="${p.getEtat()}"></td>
+                                 </tr>
+                                 </tbody>
+                             </table>
+                         </div>
+                     </div>
 
-                         </tbody>
-
-                     </table>
                  </div>
                  <div class="col-md-6">
-                     <table class="table mb-5">
-                         <thead>
-                         <tr>
-                             <th>Nom</th>
-                             <th>Prénom(s)</th>
-                             <th>Arrivée</th>
-                         </tr>
-                         </thead>
-                         <tbody>
-                         <tr  th:each="p:${presents}">
-                             <td th:text="${p.getStudent().getLastname()}"></td>
-                             <td th:text="${p.getStudent().getFirstname()}"></td>
-                             <td  th:text="${p.getDate().toString()}"></td>
-                         </tr>
+                     <div class="card">
+                         <div class="card-header">
+                            <h5 class="fw-bold">Listes separées : Présents et Absents</h5>
+                         </div>
+                         <div class="card-body">
+                             <strong>PRESENTS</strong>
+                             <table class="table mb-5">
+                                 <thead>
+                                 <tr>
+                                     <th>Nom</th>
+                                     <th>Prénom(s)</th>
+                                     <th>Arrivée</th>
+                                 </tr>
+                                 </thead>
+                                 <tbody>
+                                 <tr  th:each="p:${presents}">
+                                     <td th:text="${p.getStudent().getLastname()}"></td>
+                                     <td th:text="${p.getStudent().getFirstname()}"></td>
+                                     <td  th:text="${p.getDate().toString()}"></td>
+                                 </tr>
+                                 </tbody>
+                             </table>
+                             <strong>ABSENTS</strong>
+                             <table class="table">
+                                 <thead>
+                                 <tr>
+                                     <th>Nom</th>
+                                     <th>Prénom(s)</th>
+                                 </tr>
+                                 </thead>
+                                 <tbody>
+                                 <tr  th:each="p:${absents}">
+                                     <td th:text="${p.getLastname()}"></td>
+                                     <td th:text="${p.getFirstname()}"></td>
+                                 </tr>
 
-                         </tbody>
+                                 </tbody>
 
-                     </table>
-                     <table class="table">
-                         <thead>
-                         <tr>
-                             <th>Nom</th>
-                             <th>Prénom(s)</th>
-                         </tr>
-                         </thead>
-                         <tbody>
-                         <tr  th:each="p:${presentAndAbsents}">
-                             <td th:text="${p.getLastname()}"></td>
-                             <td th:text="${p.getFirstname()}"></td>
-                         </tr>
+                             </table>
+                         </div>
+                     </div>
 
-                         </tbody>
-
-                     </table>
                  </div>
              </div>
 

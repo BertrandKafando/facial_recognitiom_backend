@@ -12,21 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 
 @Controller
 @AllArgsConstructor
 public class controllertest {
     FacialService facialService;
-    @GetMapping("/home")
-    public String gethome(){
-        return "home1";
-    }
+
 
     @GetMapping("/form")
+
     public String getpage(Model model ,
                           @RequestParam(name = "d", defaultValue = "2022-05-20") String d,
                           @RequestParam(name = "t1", defaultValue = "21:30:20") String t1,
@@ -38,6 +35,7 @@ public class controllertest {
         String aff1 = aff;
         String date = "Absence du "+d;
         String time = "De "+t1+" à "+t2;
+
         model.addAttribute("presentAndAbsents",presentAndAbsentList);
         model.addAttribute("absents",absents);
         model.addAttribute("presents",presents);

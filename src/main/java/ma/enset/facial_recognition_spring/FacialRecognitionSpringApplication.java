@@ -4,11 +4,14 @@ import ma.enset.facial_recognition_spring.entities.Present;
 import ma.enset.facial_recognition_spring.entities.Student;
 import ma.enset.facial_recognition_spring.repositories.PresentRepository;
 import ma.enset.facial_recognition_spring.repositories.StudentRepository;
+import ma.enset.facial_recognition_spring.security.service.SecurityService;
 import ma.enset.facial_recognition_spring.service.FacialService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,7 +24,12 @@ public class FacialRecognitionSpringApplication {
         SpringApplication.run(FacialRecognitionSpringApplication.class, args);
     }
 
+
     @Bean
+    PasswordEncoder passwordEncoder(){
+        return  new BCryptPasswordEncoder();
+    }
+    //@Bean
     CommandLineRunner commandLineRunner (FacialService facialService,
                                          StudentRepository studentRepository,
                                          PresentRepository presentRepository){
@@ -35,6 +43,22 @@ public class FacialRecognitionSpringApplication {
             });
         };
 
+    }
+    @Bean
+    CommandLineRunner saveUsers(SecurityService securityService){
+        return args -> {
+            securityService.saveNewUser("professeur", "1234", "1234");
+            securityService.saveNewUser("user", "5678", "5678");
+
+            securityService.saveNewRole("USER", "");
+            securityService.saveNewRole("ADMIN", "");
+
+            securityService.addRoleToUser("professeur", "USER");
+            securityService.addRoleToUser("professeur", "ADMIN");
+            securityService.addRoleToUser("professeur", "USER");
+            securityService.addRoleToUser("user", "USER");
+
+        };
     }
 
 }

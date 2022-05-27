@@ -8,22 +8,69 @@
     <title>Title</title>
 </head>
 <body>
+
  <div layout:fragment="content1">
   <div class="container mt-2">
      <div class="card-header">Liste d'absence</div>
      <div class="card-body">
-         <form method="get" th:action="@{/index}">
+         <form method="get" th:action="@{/principal}">
              <label>Entrer la date</label>
-             <input type="date" name="keyword" th:value="${date}">
+             <input type="date" name="d" th:value="${date}">
              <br>
              <br>
              <label>Heure de debut</label>
-             <input type="datetime-local" name="keyword" th:value="${t1}">
+             <input type="time" name="t1" th:value="${t1}">
              <label style="margin-left: 15px">Heure de fin</label>
-             <input type="time" name="keyword" th:value="${t2}">
+             <input type="time" name="t2" th:value="${t2}">
 
-             <button type="submit" class="btn btn-primary">Chercher</button>
+             <button type="submit"  class="btn btn-primary" style="margin-left: 20px">Chercher</button>
          </form>
+
+         <div id="replace_div">
+             Content goes here
+         </div>
+
+         <script src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+
+
+         <script>
+             function getAllStudents(){
+
+             }
+            function getPresents() {
+
+            }
+
+            function getAbsents() {
+
+            }
+
+
+
+                 /*//call function when page is loaded
+                 getContent();
+
+                 //set on change listener
+                 $('#selection').change(getContent);
+
+                 function getContent() {
+
+                     //create url to request fragment
+                     var url = /content/;
+                     if ($('#selection').val() === "Content 1") {
+                         url = url + "content1";
+                     } else {
+                         url = url + "content2";
+                     }
+
+                     //load fragment and replace content
+                     $('#replace_div').load(url);
+                 }
+             })*/
+         </script>
+
+
+
 
 
        <!--  <table class="table">
