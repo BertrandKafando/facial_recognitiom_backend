@@ -37,6 +37,7 @@ public class FacialServiceImpl implements FacialService {
 
     @Override
     public List<Student> getAllAbsentStudent(Date t1, Date t2) {
+        System.out.println("absents");
         List<Student>students=getAllStudent();
         List<Present>presents=getAllPresentStudent(t1,t2);
         List<Student> absents = new ArrayList<>();
@@ -49,13 +50,14 @@ public class FacialServiceImpl implements FacialService {
                        String na1=presents.get(j).getFirstname();
                        String na2=student.getFirstname();
 
-                       if (na2.equals(na1) ){
-                           System.out.println("okokokokkokok");
+                       System.out.println(na2+"///"+na1);
+                       if (student.getFirstname().equals(presents.get(j).getFirstname()) ){
+                           System.out.println("pre°");
                            i++;
                        }
                    }
                    if(i==0){
-                       System.out.println("abs");
+                       System.out.println("ajouter"+i);
                        absents.add(student);
                    }
 
@@ -68,6 +70,8 @@ public class FacialServiceImpl implements FacialService {
                 return (o1.getLastname()+" "+o1.getFirstname()).compareTo(o2.getLastname()+" "+o2.getFirstname());
             }
         });
+
+        System.out.println(absents);
 
         return absents;
     }
