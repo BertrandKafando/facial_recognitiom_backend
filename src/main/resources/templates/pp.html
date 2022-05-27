@@ -12,7 +12,7 @@
   <div class="container mt-2">
      <div class="card-header">Liste d'absence</div>
      <div class="card-body">
-         <form method="get" th:action="@{/liststudent}">
+         <form method="get" th:action="@{/form}">
              <label>Entrer la date</label>
              <input type="date" name="d" th:value="${date}">
              <br>
@@ -21,32 +21,75 @@
              <input type="time" name="t1" th:value="${t1}">
              <label style="margin-left: 15px">Heure de fin</label>
              <input type="time" name="t2" th:value="${t2}">
-
-             <button type="submit"  class="btn btn-primary">Chercher</button>
+             <input type="hidden" name="aff" th:value="true">
+             <button type="submit" class="btn btn-primary">Chercher</button>
          </form>
 
-         <table class="table">
-             <thead>
-             <tr>
-                 <th>ID</th>
-                 <th>Nom</th>
-                 <th>Date</th>
-                 <th>Malade</th>
-                 <th>Score</th>
-             </tr>
-             </thead>
-             <tbody>
-             <tr  th:each="p:${presentAndAbsents}" >
-                 <td   th:text="${p.id}" th:class="${p.getEtat()=='ABSENT'? 'text-danger':'text-success'} "></td>
-                 <td th:text="${p.getFirstname()}"></td>
-                 <td th:text="${p.getLastname()}"></td>
-                 <td  th:text="${p.getEtat()}"></td>
-             </tr>
+         <div th:if="${aff=='true'}"  >
+             <div class="card card-body mt-1 mb-1 text-center">
+                 <h4 th:text="${date1}" class="fw-bold"></h4> <hr>
+                 <h5 th:text="${time}" class="fw-bold"></h5>
+             </div>
 
-             </tbody>
+             <div class="row">
+                 <div class="col-md-6">
+                     <table class="table">
+                         <thead>
+                         <tr>
+                             <th>Nom</th>
+                             <th>Prénom(s)</th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         <tr  th:each="p:${presentAndAbsents}" th:class="${p.getEtat().toString()=='ABSENT'}? 'bg-danger text-white':''">
+                             <td th:text="${p.getLastname()}"></td>
+                             <td th:text="${p.getFirstname()}"></td>
+                             <td  th:text="${p.getEtat()}"></td>
+                         </tr>
 
-         </table>
+                         </tbody>
 
+                     </table>
+                 </div>
+                 <div class="col-md-6">
+                     <table class="table mb-5">
+                         <thead>
+                         <tr>
+                             <th>Nom</th>
+                             <th>Prénom(s)</th>
+                             <th>Arrivée</th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         <tr  th:each="p:${presents}">
+                             <td th:text="${p.getStudent().getLastname()}"></td>
+                             <td th:text="${p.getStudent().getFirstname()}"></td>
+                             <td  th:text="${p.getDate().toString()}"></td>
+                         </tr>
+
+                         </tbody>
+
+                     </table>
+                     <table class="table">
+                         <thead>
+                         <tr>
+                             <th>Nom</th>
+                             <th>Prénom(s)</th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         <tr  th:each="p:${presentAndAbsents}">
+                             <td th:text="${p.getLastname()}"></td>
+                             <td th:text="${p.getFirstname()}"></td>
+                         </tr>
+
+                         </tbody>
+
+                     </table>
+                 </div>
+             </div>
+
+         </div>
        <!--  <table class="table">
              <thead>
              <tr>
