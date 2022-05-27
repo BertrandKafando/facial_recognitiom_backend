@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 
 @Controller
@@ -38,6 +37,7 @@ public class controllertest {
         String aff1 = aff;
         String date = "Absence du "+d;
         String time = "De "+t1+" à "+t2;
+
         model.addAttribute("presentAndAbsents",presentAndAbsentList);
         model.addAttribute("absents",absents);
         model.addAttribute("presents",presents);
