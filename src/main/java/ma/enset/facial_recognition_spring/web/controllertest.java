@@ -44,9 +44,9 @@ public class controllertest {
         model.addAttribute("date1",date);
         return "pp";
     }
-  /*  @GetMapping("form")
-    public String getform(){
+   @GetMapping("/")
+    public String gethome(){
 
-        return "form";
-    }*/
+        return "home";
+    }
 }
