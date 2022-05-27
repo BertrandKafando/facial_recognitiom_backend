@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor @NoArgsConstructor
 public class Present {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
     private String firstname;
     private  String lastname;

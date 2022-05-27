@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-//@RestController
+@RestController
 @AllArgsConstructor
 public class FacialController {
     FacialService facialService;
@@ -26,12 +26,7 @@ public class FacialController {
                             @RequestParam(name = "t2") String t2) throws ParseException {
 
    List<Student>  absents=   facialService.getAllAbsentStudent( new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(t1), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(t2));
-        Collections.sort(absents, new Comparator<Student>() {
-            @Override
-            public int compare(Student o1, Student o2) {
-                return (o1.getLastname()+" "+o1.getFirstname()).compareTo(o2.getLastname()+" "+o2.getFirstname());
-            }
-        });
+
        return  absents;
     }
 
