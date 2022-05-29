@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -42,11 +41,13 @@ public class ControllerAbsence {
         model.addAttribute("aff",aff1);
         model.addAttribute("time",time);
         model.addAttribute("date1",date);
-        return "pp";
+        return "principale";
     }
    @GetMapping("/")
     public String gethome(){
 
         return "home";
     }
+
+
 }
