@@ -44,7 +44,6 @@ public class FacialRecognitionSpringApplication {
         };
 
     }
-   // @Bean
     CommandLineRunner saveUsers(SecurityService securityService){
         return args -> {
             securityService.saveNewUser("professeur", "1234", "1234");
