@@ -25,7 +25,19 @@
              <button type="submit" class="btn btn-success mt-2 "><strong>Chercher</strong></button>
          </form>
 
-         <div th:if="${aff=='true'}"  >
+
+
+
+         <div th:if="${aff=='true'}">
+
+             <div th:if="${erreur!=''}">
+                 <div class="card card-body mt-2 mb-2 text-center">
+                     <h4 th:text="${date1}" class="fw-bold"></h4>
+                     <h5 th:text="${time}" class="fw-bold"></h5>
+                 </div>
+                 <h4 th:text="${erreur}" class="fw-bold text-danger"></h4> <hr>
+             </div>
+         <div th:if="${erreur==''}"  >
              <div class="card card-body mt-2 mb-2 text-center">
                  <h4 th:text="${date1}" class="fw-bold"></h4> <hr>
                  <h5 th:text="${time}" class="fw-bold"></h5>
@@ -103,6 +115,7 @@
                  </div>
              </div>
 
+         </div>
          </div>
        <!--  <table class="table">
              <thead>
